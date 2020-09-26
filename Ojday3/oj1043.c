@@ -1,18 +1,18 @@
 #include <stdio.h>
 int main()
 {
-    int n,a, b,max=0;
+    int n,a, b,c=0;
     scanf("%d", &n);
     for (a = 1; a <=n; a++)
     {
         scanf("%d",&b);
-        if (b>max)
+        if (b>c)
         {
-            max=b;
+            c=b;
         }
         
     }
     
-    printf("%d",max);
+    printf("%d",c);
     return 0;
 }
