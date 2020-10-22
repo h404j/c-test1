@@ -1,75 +1,40 @@
+
 #include <stdio.h>
-int isou(int a[][110], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        int sum = 0;
-        for (int j = 0; j < n; j++)
-        {
-            if (a[i][j] == 1)
-            {
-                /* code */
-                sum += a[i][j];
-            }
-        }
-        if (sum % 2 != 0)
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
-int change(int a[][110],int n){
-    int i,j;
-    for ( i = 0; i < n; i++)
-    {
-        int sum = 0;
-        for ( j = 0; j < n; j++)
-        {
-            if (a[i][j] == 1)
-            {
-                /* code */
-                sum += a[i][j];
-            }
-        }
-        if (sum % 2!= 0)
-        {
-            if (a[0][0==1])
-            {
-                a[0][0]=0;
-            }else
-            {
-                a[0][0]=1;
-            }
-            if (isou(a,n)==1)
-            {
-                printf("Change bit(%d,%d)",i,j-1);
-            }else
-            {
-                printf("Corrupt");
-            }
-            
-            break;  
-        }
-    }
-}
 int main()
 {
-    int a[110][110], n;
-    scanf("%d", &n);
-    for (int i = 0; i < n; i++)
+    int m, n, p, i, j, k,x1,x2,x3;
+    int a[11][11], b[11][11], c[11][11];
+    scanf("%d%d%d", &m, &p, &n);
+    for (i = 0; i < m; i++)
     {
-        for (int j = 0; j < n; j++)
-        {
+        for (j = 0; j < p; j++)
             scanf("%d", &a[i][j]);
+    }
+    for (i = 0; i < p; i++)
+    {
+        for (j = 0; j < n; j++)
+            scanf("%d", &b[i][j]);
+    }
+    for (i = 0; i < m; i++)
+        for (j = 0; j < n; j++)
+        {
+            c[i][j] = 0;
+            for (k = 0; k < p; k++){
+                x1 = a[i][k];
+                x2 = b[k][j];
+                c[i][j] += a[i][k] * b[k][j];
+                x3 = c[i][j];
+            }
+           
         }
-    }
-    if (isou(a, n) == 1)
+    for (i = 0; i < m; i++)
     {
-        printf("OK");
-    }else
-    {
-        change(a,n);
+        printf("%d", c[i][0]);
+        for (j = 1; j < n; j++)
+        {
+            printf(" %d", c[i][j]);
+        }
+        printf("\n");
     }
-    
+    return 0;
 }

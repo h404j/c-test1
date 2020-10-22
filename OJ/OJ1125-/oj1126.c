@@ -1,37 +1,86 @@
 #include <stdio.h>
-int IsUpperTriMatrix(int a[][11], int n) //函数原型中的N换成具体数据，要求1<=n<=10，所以N=11
+int isou(int a[][110], int n)
 {
-    int i, j, flag = 0;
-    /*判断当j<i时，二维数组中对应的数是否为0*/
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        for (j = 0; j < i; j++)
+        int sum = 0;
+        for (int j = 0; j < n; j++)
         {
-            if (a[i][j] != 0)
-                flag = 1;
+            if (a[i][j] == 1)
+            {
+                /* code */
+                sum += a[i][j];
+            }
+        }
+        if (sum % 2 != 0)
+        {
+            return 0;
         }
     }
-    if (flag == 0) //flag==0即为对角线以下均为0
-        return 1;
+    for (int i = 0; i < n; i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < n; j++)
+        {
+            if (a[j][i] == 1)
+            {
+                /* code */
+                sum += a[j][i];
+            }
+        }
+        if (sum % 2 != 0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+int change(int a[][110],int n){
+    int i, j, sum, x, y, t = 0, b = 0;
+    for (i = 0; i < n; i++)
+    {
+        sum = 0;
+        for (j = 0; j < n; j++)
+            sum += a[i][j];
+        if (sum % 2 != 0)
+        {
+            x = i;
+            t++;
+        }
+    }
+    for (j = 0; j < n; j++)
+    {
+        sum = 0;
+        for (i = 0; i < n; i++)
+            sum += a[i][j];
+        if (sum % 2 != 0)
+        {
+            y = j;
+            b++;
+        }
+    }
+    if (b == 1 && t == 1)
+        printf("Change bit(%d,%d)", x, y);
     else
-        return 0;
+        printf("Corrupt");
 }
 int main()
 {
-    int n, i, j, a[11][11];
+    int a[110][110], n;
     scanf("%d", &n);
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        for (j = 0; j < n; j++)
+        for (int j = 0; j < n; j++)
         {
             scanf("%d", &a[i][j]);
         }
     }
-    /*调用函数判断是否是上三角矩阵*/
-    IsUpperTriMatrix(a, n);
-    if (IsUpperTriMatrix(a, n) == 1)
-        printf("YES\n");
-    if (IsUpperTriMatrix(a, n) == 0)
-        printf("NO\n");
-    return 0;
+    if (isou(a, n) == 1)
+    {
+        printf("OK");
+    }else
+    {
+        change(a,n);
+    }
+    
 }
