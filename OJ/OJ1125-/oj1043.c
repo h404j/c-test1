@@ -1,37 +1,28 @@
 #include <stdio.h>
 #include <string.h>
-int bToD(char str[])
+int KToD(char ch[], int k)
 {
-    int x = 0;
-    //函数返回二进制数str对应十进制整数
-    while (str[x] != '\0')
-    {
-        x++;
-    }
-
-    int sum = str[x - 1] - '0';
-    for (int i = x - 2; i >= 0; i--)
-    {
-        if (str[i] - '0' == 1)
-        {
-            int sum1 = 1;
-            for (int j = 0; j < x - 1 - i; j++)
-            {
-                sum1 *= 2;
-            }
-            sum = sum + sum1;
-        }
-    }
-    return sum;
+    int n = 0, i = 0;
+    int len = strlen(ch);
+    for (i = 0; i < len; i++)
+        n = n * k + ch[i] - '0';
+    return n;
 }
 int main()
 {
-    int n, a[3];
-    char str[32];
-    for (int i = 0; i < 3; i++)
+    char ch[31];
+    int k;
+    int max, j, i;
+    int n, c = 0;
+    scanf("%d", &n);
+    scanf("%s%d", ch, &k);
+    max = KToD(ch, k);
+    for (i = 2; i <= n; i++)
     {
-        scanf("%s", str);
-        a[i] = bToD(str);
+        scanf("%s%d", ch, &k);
+        if (KToD(ch, k) > max) //取最大的数
+            max = KToD(ch, k);
     }
-   
+    printf("%d", max);
+    return 0;
 }
