@@ -1,5 +1,12 @@
-#include <stdio.h>
+
 #include "game.h"
+void game()
+{
+    char bord[ROW][COL]={0};
+    InitBoard(bord, ROW, COL);
+    //初始化棋盘
+    displayBoard(bord, ROW, COL); //打印棋盘
+}
 void menu()
 {
     printf("------------------------\n");
@@ -18,6 +25,7 @@ void test()
         {
         case 1:
             printf("三子棋游戏开始：\n");
+          
             break;
         case 0:
             printf("退出游戏\n");
@@ -29,13 +37,10 @@ void test()
         }
     } while (a);
 }
-void game()
-{
-    char bord[ROW][COL];
-    InitBoard(bord,ROW,COL);
-}
+
 int main()
 {
     test();
+    // game();
     return 0;
 }
