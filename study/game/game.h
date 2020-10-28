@@ -1,5 +1,6 @@
+#include <stdio.h>
 #define ROW 3
 #define COL 3
-#include <stdio.h>
-void InitBoard(char arr[ROW][COL],int row,int col);
-void displayBoard(char arr[ROW][COL], int row, int col); //打印棋盘
+// void hah();
+// void InitBoard(char board[ROW][COL],int row,int col);
+// void displayBoard(char board[ROW][COL], int row, int col); //打印棋盘

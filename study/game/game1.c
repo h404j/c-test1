@@ -1,43 +1,39 @@
-
 #include "game.h"
-void InitBoard(char board[ROW][COL], int row, int col){
-for (int i = 0; i < row; i++)
+void hah(){
+    printf("hsh");
+}
+void InitBoard(char board[ROW][COL], int row, int col)
 {
-    for ( int j = 0; j< col; j++)
+    for (int i = 0; i < row; i++)
     {
-        board[i][j]=' ';
+        for (int j = 0; j < col; j++)
+        {
+            board[i][j] = ' ';
+        }
     }
-    
 }
-
-}
- void displayBoard(char arr[ROW][COL], int row, int col) //打印棋盘
- {
-for (int i = 0; i <row; i++)
+void displayBoard(char board[ROW][COL], int row, int col) //打印棋盘
 {
-    for (int j = 0; j <col; j++)
+    for (int i = 0; i < row; i++)
     {
-        printf(" %c ",arr[i][j]);
-        if (i<col-1)
+        for (int j = 0; j < col; j++)
         {
-            printf("|");
+            printf(" %c ", board[i][j]);
+            if (i < col - 1)
+            {
+                printf("|");
+            }
         }
-        
-    }
-    for (int j = 0; j <col; j++)
-    {
-        if (j>0)
+        for (int j = 0; j < col; j++)
         {
-            printf("|---");
-        }else
-        {
-            printf("---");
+            if (j > 0)
+            {
+                printf("|---");
+            }
+            else
+            {
+                printf("---");
+            }
         }
-        
-        
-        
     }
-    
-}
-
 }
