@@ -47,7 +47,11 @@ void game2()
     InitBoard(bord, ROW, COL);
     //初始化棋盘
     displayBoard(bord, ROW, COL); //打印棋盘
-    playre(bord, ROW, COL);
+    while (1)
+    {
+        playre(bord, ROW, COL);//用户下棋
+        displayBoard(bord, ROW, COL); //打印棋盘
+    }
 }
 void menu()
 {
@@ -82,28 +86,30 @@ void test()
 void playre(char board[ROW][COL], int row, int col)
 {
     int x, y;
-    printf("请输入要下的位置");
-    scanf("%d%d", &x, &y);
-    if (x > 0 && x <= 3)
+    while (1)
     {
-        if (board[x - 1][y - 1] != ' ')
+        printf("请输入要下的位置\n");
+        scanf("%d%d", &x, &y);
+        if (x > 0 && x <= 3)
         {
-            board[x][y] = '*';
+            if (board[x - 1][y - 1] == ' ')
+            {
+                board[x - 1][y - 1] = '*';
+                break;
+            }
+            else
+            {
+                printf("位置已被占用\n");
+            }
         }
         else
         {
-            printf("位置已被占用");
+            printf("输入错误，请重新输入\n");
         }
-    }
-    else
-    {
-        printf("输入错误，请重新输入");
     }
 }
 int main()
 {
-
-    printf("%d", ROW);
     test();
     return 0;
 }
