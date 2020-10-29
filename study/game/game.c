@@ -1,4 +1,17 @@
-#include "game.h"
+#include <stdio.h>
+#include <stdlib.h>
+#define ROW 3
+#define COL 3
+void InitBoard(char board[ROW][COL], int row, int col)
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            board[i][j] = ' ';
+        }
+    }
+}
 void playre(char board[ROW][COL], int row, int col)
 
 {
@@ -84,6 +97,18 @@ int ifv(char board[ROW][COL], int row, int col)
 }
 void autoplayre(char board[ROW][COL], int row, int col)
 {
+   
+    while (1)
+    {
+        int a = rand(), b = rand();
+        a = a % 3;
+        b = b % 3;
+        if (board[a][b] == ' ')
+        {
+            board[a][b] = '#';
+            break;
+        }
+    }
 }
 void displayBoard(char board[ROW][COL], int row, int col) //打印棋盘
 {
@@ -116,16 +141,6 @@ void displayBoard(char board[ROW][COL], int row, int col) //打印棋盘
         }
     }
 }
-void InitBoard(char board[ROW][COL], int row, int col)
-{
-    for (int i = 0; i < row; i++)
-    {
-        for (int j = 0; j < col; j++)
-        {
-            board[i][j] = ' ';
-        }
-    }
-}
 void game2()
 {
     char bord[ROW][COL] = {0};
@@ -135,6 +150,7 @@ void game2()
     do
     {
         playre(bord, ROW, COL);       //用户下棋
+        autoplayre(bord, ROW, COL);   //电脑下棋
         displayBoard(bord, ROW, COL); //打印棋盘
     } while (ifv(bord, ROW, COL));
 }
@@ -168,7 +184,6 @@ void test()
         }
     } while (a);
 }
-
 int main()
 {
     test();
