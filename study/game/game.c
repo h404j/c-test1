@@ -2,6 +2,20 @@
 #include <stdlib.h>
 #define ROW 3
 #define COL 3
+int isfull(char board[ROW][COL], int row, int col)
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (board[i][j] == ' ')
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
 void InitBoard(char board[ROW][COL], int row, int col)
 {
     for (int i = 0; i < row; i++)
@@ -38,7 +52,7 @@ void playre(char board[ROW][COL], int row, int col)
         }
     }
 }
-int ifv(char board[ROW][COL], int row, int col)
+int IsWin(char board[ROW][COL], int row, int col)
 {
     int z = 0, w = 0, z1 = 0, w1 = 0;
     for (int i = 0; i < row; i++)
@@ -97,7 +111,7 @@ int ifv(char board[ROW][COL], int row, int col)
 }
 void autoplayre(char board[ROW][COL], int row, int col)
 {
-   
+
     while (1)
     {
         int a = rand(), b = rand();
@@ -149,10 +163,32 @@ void game2()
     displayBoard(bord, ROW, COL); //打印棋盘
     do
     {
-        playre(bord, ROW, COL);       //用户下棋
-        autoplayre(bord, ROW, COL);   //电脑下棋
+        playre(bord, ROW, COL); //用户下棋
+        if (!isfull(bord, ROW, COL))
+        {
+            if (IsWin)
+            {
+                break;
+            }
+            else
+            {
+                printf("平局");
+            }
+        }
+        autoplayre(bord, ROW, COL); //电脑下棋
+        if (!isfull(bord, ROW, COL))
+        {
+            if (IsWin)
+            {
+                break;
+            }
+            else
+            {
+                printf("平局");
+            }
+        }
         displayBoard(bord, ROW, COL); //打印棋盘
-    } while (ifv(bord, ROW, COL));
+    } while (IsWin(bord, ROW, COL));
 }
 void menu()
 {
