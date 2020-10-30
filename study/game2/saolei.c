@@ -2,8 +2,11 @@
 #define COL 9
 #define ROWS ROW + 3
 #define COLS COL + 3
+#define NUM_MINE 10
 #include <stdio.h>
+#include <stdlib.h>
 void menu();
+void lookmine(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int x, int y);
 void displayBoard(char board[ROWS][COLS], int row, int col);
 void Initmine(char board[ROWS][COLS], int row, int col);
 void InitBoard(char board[ROWS][COLS], int row, int col, char c);
@@ -72,18 +75,63 @@ void InitBoard(char board[ROWS][COLS], int row, int col, char c)
 }
 void Initmine(char board[ROWS][COLS], int row, int col)
 {
+    int a = NUM_MINE;
+    while (a)
+    {
+        int x = rand() % 9 + 1;
+        int y = rand() % 9 + 1;
+        if (board[x][y] == '0')
+        {
+            board[x][y] = '1';
+            a--;
+        }
+    }
+}
+
+void showmine(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int row, int col)
+{
     for (int i = 1; i <= row; i++)
     {
         for (int j = 0; j <= col; j++)
         {
-            board[i][j] = '1';
+        }
+    }
+}
+void lookmine(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int x, int y)
+{
+    if (x > 0 && x <= ROW && y > 0 && y <= COL)
+    {
+
+        if (board[x][y] != '1')
+        {
+            int z = board[x][y + 1] + board[x][y - 1] + board[x + 1][y + 1] + board[x + 1][y - 1] + board[x - 1][y - 1] + board[x - 1][y + 1] + board[x + 1][y] + board[x - 1][y] - 8 * '0';
+            if (z == 0)
+            {
+                Mineboard[x][y] = ' ';
+                lookmine(board, Mineboard, x, y + 1);
+                lookmine(board, Mineboard, x, y - 1);
+                lookmine(board, Mineboard, x + 1, y + 1);
+                lookmine(board, Mineboard, x + 1, y - 1);
+                lookmine(board, Mineboard, x - 1, y + 1);
+                lookmine(board, Mineboard, x - 1, y - 1);
+                lookmine(board, Mineboard, x + 1, y);
+                lookmine(board, Mineboard, x - 1, y);
+            }
+            else
+            {
+                Mineboard[x][y] = 48 + z;
+            }
         }
     }
 }
 void game()
 {
     char board[ROWS][COLS];
+    char Mineboard[ROWS][COLS];
     InitBoard(board, ROWS, COLS, '0');
-    // Initmine(board,ROW,COL);
+    InitBoard(Mineboard, ROWS, COLS, '@');
+    Initmine(board, ROW, COL);
+    lookmine(board, Mineboard, 1, 1);
     displayBoard(board, ROW, COL);
+    displayBoard(Mineboard, ROW, COL);
 }
