@@ -5,6 +5,8 @@
 #define NUM_MINE 10
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+void play(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int row, int col);
 void menu();
 void lookmine(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int x, int y);
 void displayBoard(char board[ROWS][COLS], int row, int col);
@@ -38,6 +40,15 @@ void displayBoard(char board[ROWS][COLS], int row, int col) //打印棋盘
         }
         printf("\n");
     }
+}
+void play(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int row, int col)
+{
+    int x, y;
+    printf("")
+    scanf("%d%d", &x, &y);
+    lookmine(board, Mineboard, x, y);
+    displayBoard(board, ROW, COL);
+    displayBoard(Mineboard, ROW, COL);
 }
 void test()
 {
@@ -75,19 +86,19 @@ void InitBoard(char board[ROWS][COLS], int row, int col, char c)
 }
 void Initmine(char board[ROWS][COLS], int row, int col)
 {
+    srand((unsigned)time(NULL));
     int a = NUM_MINE;
     while (a)
     {
         int x = rand() % 9 + 1;
         int y = rand() % 9 + 1;
-        if (board[x][y] == '0')
+        if (board[x][y] == 79)
         {
-            board[x][y] = '1';
+            board[x][y] = '@';
             a--;
         }
     }
 }
-
 void showmine(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int row, int col)
 {
     for (int i = 1; i <= row; i++)
@@ -102,25 +113,69 @@ void lookmine(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int x, int y)
     if (x > 0 && x <= ROW && y > 0 && y <= COL)
     {
 
-        if (board[x][y] != '1')
+        if (board[x][y] != '@')
         {
-            int z = board[x][y + 1] + board[x][y - 1] + board[x + 1][y + 1] + board[x + 1][y - 1] + board[x - 1][y - 1] + board[x - 1][y + 1] + board[x + 1][y] + board[x - 1][y] - 8 * '0';
-            if (z == 0)
+            int z = 0;
+            int i = 0;
+            if (board[x][y + 1] > 60)
             {
-                Mineboard[x][y] = ' ';
-                lookmine(board, Mineboard, x, y + 1);
-                lookmine(board, Mineboard, x, y - 1);
-                lookmine(board, Mineboard, x + 1, y + 1);
-                lookmine(board, Mineboard, x + 1, y - 1);
-                lookmine(board, Mineboard, x - 1, y + 1);
-                lookmine(board, Mineboard, x - 1, y - 1);
-                lookmine(board, Mineboard, x + 1, y);
-                lookmine(board, Mineboard, x - 1, y);
+                z += board[x][y + 1];
+                i++;
             }
-            else
+            if (board[x][y - 1] > 60)
             {
-                Mineboard[x][y] = 48 + z;
+                z += board[x][y - 1];
+                i++;
             }
+            if (board[x + 1][y + 1] > 60)
+            {
+                z += board[x + 1][y + 1];
+                i++;
+            }
+            if (board[x + 1][y - 1] > 60)
+            {
+                z += board[x + 1][y - 1];
+                i++;
+            }
+            if (board[x - 1][y - 1] > 60)
+            {
+                z += board[x - 1][y - 1];
+                i++;
+            }
+            if (board[x - 1][y + 1] > 60)
+            {
+                z += board[x - 1][y + 1];
+                i++;
+            }
+            if (board[x + 1][y] > 60)
+            {
+                z += board[x + 1][y];
+                i++;
+            }
+            if (board[x - 1][y] > 60)
+            {
+                z += board[x - 1][y];
+                i++;
+            }
+            z = -(z - i * 79);
+            z /= 14;
+            Mineboard[x][y] = z + 48;
+            // if (z == 0)
+            // {
+            //     Mineboard[x][y] = ' ';
+            //     lookmine(board, Mineboard, x, y + 1);
+            //     lookmine(board, Mineboard, x, y - 1);
+            //     lookmine(board, Mineboard, x + 1, y + 1);
+            //     lookmine(board, Mineboard, x + 1, y - 1);
+            //     lookmine(board, Mineboard, x - 1, y + 1);
+            //     lookmine(board, Mineboard, x - 1, y - 1);
+            //     lookmine(board, Mineboard, x + 1, y);
+            //     lookmine(board, Mineboard, x - 1, y);
+            // }
+            // else
+            // {
+            //     Mineboard[x][y] = 48 + z;
+            // }
         }
     }
 }
@@ -128,10 +183,12 @@ void game()
 {
     char board[ROWS][COLS];
     char Mineboard[ROWS][COLS];
-    InitBoard(board, ROWS, COLS, '0');
-    InitBoard(Mineboard, ROWS, COLS, '@');
+    InitBoard(board, ROWS, COLS, 79);
+    InitBoard(Mineboard, ROWS, COLS, '?');
     Initmine(board, ROW, COL);
-    lookmine(board, Mineboard, 1, 1);
-    displayBoard(board, ROW, COL);
-    displayBoard(Mineboard, ROW, COL);
+    do
+    {
+    play(board,Mineboard,ROW,COL);
+    } while (1);
+    
 }
