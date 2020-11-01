@@ -44,7 +44,7 @@ void displayBoard(char board[ROWS][COLS], int row, int col) //打印棋盘
 void play(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int row, int col)
 {
     int x, y;
-    printf("")
+    printf("请输入你要扫的坐标");
     scanf("%d%d", &x, &y);
     lookmine(board, Mineboard, x, y);
     displayBoard(board, ROW, COL);
@@ -159,23 +159,53 @@ void lookmine(char board[ROWS][COLS], char Mineboard[ROWS][COLS], int x, int y)
             }
             z = -(z - i * 79);
             z /= 14;
-            Mineboard[x][y] = z + 48;
-            // if (z == 0)
-            // {
-            //     Mineboard[x][y] = ' ';
-            //     lookmine(board, Mineboard, x, y + 1);
-            //     lookmine(board, Mineboard, x, y - 1);
-            //     lookmine(board, Mineboard, x + 1, y + 1);
-            //     lookmine(board, Mineboard, x + 1, y - 1);
-            //     lookmine(board, Mineboard, x - 1, y + 1);
-            //     lookmine(board, Mineboard, x - 1, y - 1);
-            //     lookmine(board, Mineboard, x + 1, y);
-            //     lookmine(board, Mineboard, x - 1, y);
-            // }
-            // else
-            // {
-            //     Mineboard[x][y] = 48 + z;
-            // }
+            if (z == 0)
+            {
+                Mineboard[x][y] = ' ';
+                if (board[x][y + 1] > 60)
+                {
+                    lookmine(board, Mineboard, x, y + 1);
+                }
+                if (board[x][y - 1] > 60)
+                {
+                    lookmine(board, Mineboard, x, y - 1);
+                }
+                if (board[x + 1][y + 1] > 60)
+                {
+                    /* code */
+                    lookmine(board, Mineboard, x + 1, y + 1);
+                }
+
+                if (board[x + 1][y - 1] > 60)
+                {
+                    /* code */
+                    lookmine(board, Mineboard, x + 1, y - 1);
+                }
+                if (board[x - 1][y + 1] > 60)
+                {
+                    /* code */
+                    lookmine(board, Mineboard, x - 1, y + 1);
+                }
+                if (board[x - 1][y - 1] > 60)
+                {
+                    /* code */
+                    lookmine(board, Mineboard, x - 1, y - 1);
+                }
+                if (board[x + 1][y] > 60)
+                {
+                    /* code */
+                    lookmine(board, Mineboard, x + 1, y);
+                }
+                if (board[x - 1][y] > 60)
+                {
+                    /* code */
+                    lookmine(board, Mineboard, x - 1, y);
+                }
+            }
+            else
+            {
+                Mineboard[x][y] = 48 + z;
+            }
         }
     }
 }
@@ -188,7 +218,6 @@ void game()
     Initmine(board, ROW, COL);
     do
     {
-    play(board,Mineboard,ROW,COL);
+        play(board, Mineboard, ROW, COL);
     } while (1);
-    
 }
