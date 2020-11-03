@@ -19,7 +19,7 @@ int main()
         {
             for (int j = 0; j < m; j++)
             {
-                if (a[i + j] != b[j])//a[i+j]!=b[j]说明与b数组不匹配，进入下一个循环
+                if (a[i + j] != b[j])//a[i+j]!=b[j]说明与b数组不匹 配，进入下一个循环
                 {
                     break;
                 }
